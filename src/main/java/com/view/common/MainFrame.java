@@ -1,11 +1,14 @@
 package main.java.com.view.common;
 
 import main.java.com.view.admin.GestionArticlesPanel;
+import main.java.com.view.admin.GestionClientsPanel;
+import main.java.com.view.admin.GestionRemisesPanel;
 import main.java.com.view.admin.StatistiquesPanel;
 import main.java.com.view.client.CataloguePanel;
 import main.java.com.view.client.HistoriqueCommandesPanel;
 import main.java.com.view.client.InscriptionPanel;
 import main.java.com.view.client.PanierPanel;
+import main.java.com.view.reporting.ReportingPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,7 +29,10 @@ public class MainFrame extends JFrame {
     private PanierPanel panierPanel;
     private HistoriqueCommandesPanel historiquePanel;
     private GestionArticlesPanel gestionArticlesPanel;
+    private GestionClientsPanel gestionClientsPanel;
+    private GestionRemisesPanel gestionRemisesPanel;
     private StatistiquesPanel statistiquesPanel;
+    private ReportingPanel reportingPanel;
 
     // Menus
     private JMenuBar menuBar;
@@ -62,7 +68,7 @@ public class MainFrame extends JFrame {
         loginPanel = new LoginPanel(this);
         inscriptionPanel = new InscriptionPanel(this);
 
-        // Les autres panels seront créés à la demande
+        // Les autres panels seront créés à la demande pour optimiser l'utilisation de la mémoire
     }
 
     /**
@@ -111,10 +117,19 @@ public class MainFrame extends JFrame {
         menuAdmin = new JMenu("Administration");
         JMenuItem itemGestionArticles = new JMenuItem("Gestion des articles");
         itemGestionArticles.addActionListener(e -> showGestionArticlesPanel());
+        JMenuItem itemGestionClients = new JMenuItem("Gestion des clients");
+        itemGestionClients.addActionListener(e -> showGestionClientsPanel());
+        JMenuItem itemGestionRemises = new JMenuItem("Gestion des remises");
+        itemGestionRemises.addActionListener(e -> showGestionRemisesPanel());
         JMenuItem itemStatistiques = new JMenuItem("Statistiques");
         itemStatistiques.addActionListener(e -> showStatistiquesPanel());
+        JMenuItem itemReporting = new JMenuItem("Reporting");
+        itemReporting.addActionListener(e -> showReportingPanel());
         menuAdmin.add(itemGestionArticles);
+        menuAdmin.add(itemGestionClients);
+        menuAdmin.add(itemGestionRemises);
         menuAdmin.add(itemStatistiques);
+        menuAdmin.add(itemReporting);
 
         // Ajout des menus à la barre de menu
         menuBar.add(menuFichier);
@@ -154,6 +169,9 @@ public class MainFrame extends JFrame {
         if (panierPanel == null) {
             panierPanel = new PanierPanel(this);
             contentPanel.add(panierPanel, "panier");
+        } else {
+            // Rafraîchit le panier pour s'assurer que les données sont à jour
+            panierPanel.refreshPanier();
         }
         cardLayout.show(contentPanel, "panier");
     }
@@ -181,6 +199,28 @@ public class MainFrame extends JFrame {
     }
 
     /**
+     * Affiche le panel de gestion des clients
+     */
+    public void showGestionClientsPanel() {
+        if (gestionClientsPanel == null) {
+            gestionClientsPanel = new GestionClientsPanel(this);
+            contentPanel.add(gestionClientsPanel, "gestionClients");
+        }
+        cardLayout.show(contentPanel, "gestionClients");
+    }
+
+    /**
+     * Affiche le panel de gestion des remises
+     */
+    public void showGestionRemisesPanel() {
+        if (gestionRemisesPanel == null) {
+            gestionRemisesPanel = new GestionRemisesPanel(this);
+            contentPanel.add(gestionRemisesPanel, "gestionRemises");
+        }
+        cardLayout.show(contentPanel, "gestionRemises");
+    }
+
+    /**
      * Affiche le panel de statistiques
      */
     public void showStatistiquesPanel() {
@@ -189,6 +229,17 @@ public class MainFrame extends JFrame {
             contentPanel.add(statistiquesPanel, "statistiques");
         }
         cardLayout.show(contentPanel, "statistiques");
+    }
+
+    /**
+     * Affiche le panel de reporting
+     */
+    public void showReportingPanel() {
+        if (reportingPanel == null) {
+            reportingPanel = new ReportingPanel(this);
+            contentPanel.add(reportingPanel, "reporting");
+        }
+        cardLayout.show(contentPanel, "reporting");
     }
 
     /**
@@ -241,5 +292,13 @@ public class MainFrame extends JFrame {
      */
     public String getCurrentUserType() {
         return currentUserType;
+    }
+
+    /**
+     * Retourne le panel de catalogue
+     * @return Le panel de catalogue
+     */
+    public JPanel getCataloguePanel() {
+        return cataloguePanel;
     }
 }
