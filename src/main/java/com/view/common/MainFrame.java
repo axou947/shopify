@@ -12,13 +12,26 @@ import main.java.com.view.reporting.ReportingPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * Fenêtre principale de l'application
+ * Version améliorée suivant les principes du cours 7
  */
 public class MainFrame extends JFrame {
+    // Constants for the frame
+    private static final String TITLE = "Shopping Application";
+    private static final int WIDTH = 1024;
+    private static final int HEIGHT = 768;
+
+    // Layout manager
     private CardLayout cardLayout;
     private JPanel contentPanel;
+
+    // User information
     private int currentUserId;
     private String currentUserType;
 
@@ -40,18 +53,40 @@ public class MainFrame extends JFrame {
     private JMenu menuClient;
     private JMenu menuAdmin;
 
+    // Menu items
+    private JMenuItem itemDeconnexion;
+    private JMenuItem itemQuitter;
+    private JMenuItem itemCatalogue;
+    private JMenuItem itemPanier;
+    private JMenuItem itemHistorique;
+    private JMenuItem itemGestionArticles;
+    private JMenuItem itemGestionClients;
+    private JMenuItem itemGestionRemises;
+    private JMenuItem itemStatistiques;
+    private JMenuItem itemReporting;
+
     /**
      * Constructeur de la fenêtre principale
      */
     public MainFrame() {
-        setTitle("Shopping Application");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1024, 768);
+        // Configuration de base de la fenêtre
+        setTitle(TITLE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        setSize(WIDTH, HEIGHT);
         setLocationRelativeTo(null);
+
+        // Gestionnaire de fermeture personnalisé
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                confirmAndExit();
+            }
+        });
 
         initComponents();
         setupLayout();
         setupMenus();
+        setupListeners();
 
         // Par défaut, affiche l'écran de connexion
         cardLayout.show(contentPanel, "login");
@@ -69,12 +104,31 @@ public class MainFrame extends JFrame {
         inscriptionPanel = new InscriptionPanel(this);
 
         // Les autres panels seront créés à la demande pour optimiser l'utilisation de la mémoire
+
+        // Initialisation des menus
+        menuBar = new JMenuBar();
+        menuFichier = new JMenu("Fichier");
+        menuClient = new JMenu("Client");
+        menuAdmin = new JMenu("Administration");
+
+        // Initialisation des items de menu
+        itemDeconnexion = new JMenuItem("Déconnexion");
+        itemQuitter = new JMenuItem("Quitter");
+        itemCatalogue = new JMenuItem("Catalogue");
+        itemPanier = new JMenuItem("Panier");
+        itemHistorique = new JMenuItem("Historique des commandes");
+        itemGestionArticles = new JMenuItem("Gestion des articles");
+        itemGestionClients = new JMenuItem("Gestion des clients");
+        itemGestionRemises = new JMenuItem("Gestion des remises");
+        itemStatistiques = new JMenuItem("Statistiques");
+        itemReporting = new JMenuItem("Reporting");
     }
 
     /**
      * Configure la disposition des composants
      */
     private void setupLayout() {
+        // Utilisation d'un BorderLayout pour la fenêtre principale
         setLayout(new BorderLayout());
 
         // Ajout des panels au conteneur avec CardLayout
@@ -83,48 +137,29 @@ public class MainFrame extends JFrame {
 
         // Ajout du conteneur principal à la fenêtre
         add(contentPanel, BorderLayout.CENTER);
+
+        // Configuration du statut à afficher en bas de la fenêtre
+        JPanel statusPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JLabel statusLabel = new JLabel("Bienvenue dans l'application Shopping");
+        statusPanel.add(statusLabel);
+        add(statusPanel, BorderLayout.SOUTH);
     }
 
     /**
      * Configure les menus
      */
     private void setupMenus() {
-        menuBar = new JMenuBar();
-
         // Menu Fichier
-        menuFichier = new JMenu("Fichier");
-        JMenuItem itemQuitter = new JMenuItem("Quitter");
-        itemQuitter.addActionListener(e -> System.exit(0));
-        JMenuItem itemDeconnexion = new JMenuItem("Déconnexion");
-        itemDeconnexion.addActionListener(e -> logout());
         menuFichier.add(itemDeconnexion);
         menuFichier.addSeparator();
         menuFichier.add(itemQuitter);
 
         // Menu Client
-        menuClient = new JMenu("Client");
-        JMenuItem itemCatalogue = new JMenuItem("Catalogue");
-        itemCatalogue.addActionListener(e -> showCataloguePanel());
-        JMenuItem itemPanier = new JMenuItem("Panier");
-        itemPanier.addActionListener(e -> showPanierPanel());
-        JMenuItem itemHistorique = new JMenuItem("Historique des commandes");
-        itemHistorique.addActionListener(e -> showHistoriquePanel());
         menuClient.add(itemCatalogue);
         menuClient.add(itemPanier);
         menuClient.add(itemHistorique);
 
         // Menu Admin
-        menuAdmin = new JMenu("Administration");
-        JMenuItem itemGestionArticles = new JMenuItem("Gestion des articles");
-        itemGestionArticles.addActionListener(e -> showGestionArticlesPanel());
-        JMenuItem itemGestionClients = new JMenuItem("Gestion des clients");
-        itemGestionClients.addActionListener(e -> showGestionClientsPanel());
-        JMenuItem itemGestionRemises = new JMenuItem("Gestion des remises");
-        itemGestionRemises.addActionListener(e -> showGestionRemisesPanel());
-        JMenuItem itemStatistiques = new JMenuItem("Statistiques");
-        itemStatistiques.addActionListener(e -> showStatistiquesPanel());
-        JMenuItem itemReporting = new JMenuItem("Reporting");
-        itemReporting.addActionListener(e -> showReportingPanel());
         menuAdmin.add(itemGestionArticles);
         menuAdmin.add(itemGestionClients);
         menuAdmin.add(itemGestionRemises);
@@ -142,6 +177,99 @@ public class MainFrame extends JFrame {
 
         // Ajout de la barre de menu à la fenêtre
         setJMenuBar(menuBar);
+    }
+
+    /**
+     * Configure les écouteurs d'événements
+     */
+    private void setupListeners() {
+        // Écouteur pour la déconnexion
+        itemDeconnexion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                logout();
+            }
+        });
+
+        // Écouteur pour quitter
+        itemQuitter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                confirmAndExit();
+            }
+        });
+
+        // Écouteurs pour les menus client
+        itemCatalogue.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showCataloguePanel();
+            }
+        });
+
+        itemPanier.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showPanierPanel();
+            }
+        });
+
+        itemHistorique.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showHistoriquePanel();
+            }
+        });
+
+        // Écouteurs pour les menus admin
+        itemGestionArticles.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showGestionArticlesPanel();
+            }
+        });
+
+        itemGestionClients.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showGestionClientsPanel();
+            }
+        });
+
+        itemGestionRemises.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showGestionRemisesPanel();
+            }
+        });
+
+        itemStatistiques.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showStatistiquesPanel();
+            }
+        });
+
+        itemReporting.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showReportingPanel();
+            }
+        });
+    }
+
+    /**
+     * Demande confirmation avant de quitter l'application
+     */
+    private void confirmAndExit() {
+        int response = JOptionPane.showConfirmDialog(this,
+                "Êtes-vous sûr de vouloir quitter l'application ?",
+                "Confirmation",
+                JOptionPane.YES_NO_OPTION);
+
+        if (response == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
     }
 
     /**
