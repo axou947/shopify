@@ -15,7 +15,7 @@ import java.sql.SQLException;
  */
 public class DatabaseConnection {
     private static DatabaseConnection instance ;
-    private Connection connection;
+    private Connection connection ;
 
     // Configuration de la base de données
     private static final String URL = "jdbc:mysql://localhost:3306/shopping_db";
