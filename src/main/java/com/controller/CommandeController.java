@@ -6,7 +6,7 @@ import main.java.com.dao.DAOFactory;
 import main.java.com.model.Article;
 import main.java.com.model.ArticleMarque;
 import main.java.com.model.Commande;
-import main.java.com.model.LigneCommande;
+import main.java.com.model.LigneCommande; 
 
 import java.util.Date;
 import java.util.List;
