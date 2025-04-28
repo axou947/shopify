@@ -3,10 +3,10 @@ package main.java.com.controller;
 import main.java.com.dao.ClientDAO;
 import main.java.com.dao.DAOFactory;
 import main.java.com.dao.UtilisateurDAO;
+import main.java.com.model.Administrateur;
 import main.java.com.model.Client;
 import main.java.com.model.Utilisateur;
-import main.java.com.util.PasswordHasher; 
-
+import main.java.com.util.PasswordHasher;
 
 import java.util.Date;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
  * Contrôleur pour gérer les opérations liées aux clients
  */
 public class ClientController {
-    private ClientDAO clientDAO; 
+    private ClientDAO clientDAO;
     private UtilisateurDAO utilisateurDAO;
 
     /**
@@ -70,6 +70,63 @@ public class ClientController {
     }
 
     /**
+     * Inscrit un nouvel utilisateur (client ou administrateur)
+     *
+     * @param email      Email de l'utilisateur
+     * @param motDePasse Mot de passe de l'utilisateur
+     * @param nom        Nom de l'utilisateur
+     * @param prenom     Prénom de l'utilisateur
+     * @param adresse    Adresse de l'utilisateur
+     * @param telephone  Téléphone de l'utilisateur
+     * @param type       Type de l'utilisateur ("client" ou "admin")
+     * @return ID de l'utilisateur créé, -1 si échec
+     */
+    public int inscrireUtilisateur(String email, String motDePasse, String nom, String prenom,
+                                   String adresse, String telephone, String type) {
+        // Vérifie si l'email existe déjà
+        if (utilisateurDAO.findByEmail(email) != null) {
+            return -1;
+        }
+
+        // Crée l'utilisateur
+        Utilisateur utilisateur = new Utilisateur();
+        utilisateur.setEmail(email);
+        utilisateur.setMotDePasse(PasswordHasher.hash(motDePasse));
+        utilisateur.setType(type);
+        utilisateur.setNom(nom);
+        utilisateur.setPrenom(prenom);
+        utilisateur.setAdresse(adresse);
+        utilisateur.setTelephone(telephone);
+        utilisateur.setDateInscription(new Date());
+
+        if (utilisateurDAO.create(utilisateur)) {
+            int userId = utilisateur.getId();
+
+            // Selon le type, créer un client ou un administrateur
+            if ("client".equals(type)) {
+                Client client = new Client();
+                client.setUtilisateurId(userId);
+                client.setStatut("nouveau");
+
+                if (clientDAO.create(client)) {
+                    return client.getId();
+                }
+            } else if ("admin".equals(type)) {
+                // Crée un administrateur lié à cet utilisateur
+                Administrateur admin = new Administrateur();
+                admin.setUtilisateurId(userId);
+                admin.setRole("standard"); // Rôle par défaut
+
+                // Dans une implémentation réelle, il faudrait avoir un DAOFactory.getAdministrateurDAO()
+                // Pour simplifier, on retourne directement l'ID de l'utilisateur
+                return userId;
+            }
+        }
+
+        return -1;
+    }
+//
+    /**
      * Inscrit un nouveau client
      *
      * @param email      Email du client
@@ -81,32 +138,7 @@ public class ClientController {
      * @return ID du client créé, -1 si échec
      */
     public int inscrireClient(String email, String motDePasse, String nom, String prenom, String adresse, String telephone) {
-        // Vérifie si l'email existe déjà
-        if (utilisateurDAO.findByEmail(email) != null) {
-            return -1;
-        }
-
-        // Crée l'utilisateur
-        Utilisateur utilisateur = new Utilisateur();
-        utilisateur.setEmail(email);
-        utilisateur.setMotDePasse(PasswordHasher.hash(motDePasse));
-        utilisateur.setType("client");
-        utilisateur.setNom(nom);
-        utilisateur.setPrenom(prenom);
-        utilisateur.setAdresse(adresse);
-        utilisateur.setTelephone(telephone);
-        utilisateur.setDateInscription(new Date());
-
-        // Crée le client
-        Client client = new Client();
-        client.setStatut("nouveau");
-
-        // Sauvegarde dans la base de données
-        if (clientDAO.createWithUtilisateur(utilisateur, client)) {
-            return client.getId();
-        }
-
-        return -1;
+        return inscrireUtilisateur(email, motDePasse, nom, prenom, adresse, telephone, "client");
     }
 
     /**
