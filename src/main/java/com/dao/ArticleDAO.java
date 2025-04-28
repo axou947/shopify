@@ -1,4 +1,4 @@
-package main.java.com.dao;
+ package main.java.com.dao;
 
 import main.java.com.config.DatabaseConnection;
 import main.java.com.model.Article;
