@@ -19,6 +19,7 @@ import java.awt.event.ActionListener;
 import java.text.NumberFormat;
 import java.util.List;
 
+
 /**
  * Panel pour la gestion des articles
  */
