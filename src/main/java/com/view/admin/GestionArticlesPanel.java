@@ -8,6 +8,7 @@ import main.java.com.model.ArticleMarque;
 import main.java.com.model.Marque;
 import main.java.com.view.common.MainFrame;
 
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.AbstractTableModel;
