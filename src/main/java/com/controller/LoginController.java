@@ -10,7 +10,7 @@ import main.java.com.util.PasswordHasher;
  * Contrôleur pour gérer les opérations de connexion
  */
 public class LoginController  {
-    private UtilisateurDAO utilisateurDAO;
+    private UtilisateurDAO utilisateurDAO ;
 
     /**
      * Constructeur du contrôleur de login
