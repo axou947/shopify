@@ -9,7 +9,7 @@ public class Remise {
     private int id;
     private String code;
     private double pourcentage;
-    private double montantFixe;
+    private double montantFixe; 
     private Date dateDebut;
     private Date dateFin;
     private int quantiteMin;
