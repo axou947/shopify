@@ -9,7 +9,7 @@ import java.util.List;
  
 /**    
  * Classe DAO pour l'entité Article   
- */
+ */ 
 public class ArticleDAO implements GenericDAO<Article>  {
     private Connection connection;  
 
