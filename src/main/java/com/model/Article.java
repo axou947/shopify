@@ -31,7 +31,7 @@ public class Article {
      * @param imageUrl URL de l'image de l'article
      */
     public Article(int id, String nom, String description, double prixUnitaire, Double prixGros, Integer quantiteGros, int stock, String imageUrl) {
-        this.id = id;
+        this.id = id ;
         this.nom = nom;
         this.description = description;
         this.prixUnitaire = prixUnitaire;
