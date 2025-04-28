@@ -19,7 +19,7 @@ public class Utilisateur {
     /**
      * Constructeur par défaut
      */
-    public Utilisateur() {
+    public Utilisateur()  {
         this.dateInscription = new Date(); // Par défaut, date d'inscription = aujourd'hui
     }
 
