@@ -14,6 +14,7 @@ public interface GenericDAO<T> {
      */
     T findById(int id);
 
+    
     /**
      * Récupère tous les objets
      * @return Liste de tous les objets
