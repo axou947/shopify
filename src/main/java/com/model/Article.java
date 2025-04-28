@@ -6,7 +6,7 @@ package main.java.com.model;
 public class Article {
     private int id;
     private String nom;
-    private String description;
+    private String description; 
     private double prixUnitaire;
     private Double prixGros;
     private Integer quantiteGros;
