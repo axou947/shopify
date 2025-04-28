@@ -12,7 +12,7 @@ public class Main {
      * Point d'entrée de l'application
      * @param args Arguments de ligne de commande (non utilisés)
      */
-    public static void main(String[] args) {
+    public static void main(String[] args)  {
         // Assure que l'interface graphique s'exécute sur l'EDT (Event Dispatch Thread)
         SwingUtilities.invokeLater(new Runnable() {
             @Override
