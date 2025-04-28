@@ -4,7 +4,7 @@ package main.java.com.model;
  * Classe représentant un client dans le système de shopping
  */
 public class Client {
-    private int id;
+    private int id; 
     private int utilisateurId;
     private String statut; // "nouveau" ou "ancien"
 
