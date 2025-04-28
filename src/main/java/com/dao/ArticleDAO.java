@@ -5,7 +5,7 @@ import main.java.com.model.Article;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List; 
+import java.util.List;  
  
 /**    
  * Classe DAO pour l'entité Article   
