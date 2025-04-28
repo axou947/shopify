@@ -16,7 +16,7 @@ public class ArticleController {
     private ArticleDAO articleDAO; 
 
     public ArticleController() {
-        this.articleDAO = DAOFactory.getArticleDAO();
+        this.articleDAO = DAOFactory.getArticleDAO() ;
     }
 
     /**
