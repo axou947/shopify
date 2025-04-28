@@ -8,7 +8,7 @@ import java.sql.SQLException;
  * Classe de connexion à la base de données
  * Utilise le pattern Singleton pour garantir une seule instance de connexion
  */
-public class DatabaseConnection {
+public class DatabaseConnection  {
     private static DatabaseConnection instance;
     private Connection connection;
 
