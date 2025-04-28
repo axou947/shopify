@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class ValidationUtils {
     // Regex pour valider un email
     private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@(.+)$";
-    private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
+    private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX) ;
 
     // Regex pour valider un numéro de téléphone
     private static final String PHONE_REGEX = "^[0-9]{10}$";
