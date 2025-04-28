@@ -3,7 +3,7 @@ package main.java.com.dao;
  * Factory pour créer les instances de DAO
  * Utilise le pattern Factory pour centraliser la création des objets DAO
  */
-public class DAOFactory {
+public class DAOFactory { 
 
     
     /**
