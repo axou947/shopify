@@ -4,6 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+
+
+
+
+
 /**
  * Classe de connexion à la base de données
  * Utilise le pattern Singleton pour garantir une seule instance de connexion
