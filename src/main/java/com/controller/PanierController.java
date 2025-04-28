@@ -5,7 +5,7 @@ import main.java.com.dao.DAOFactory;
 import main.java.com.model.Article;
 import main.java.com.model.ArticleMarque;
 import main.java.com.model.LigneCommande;
-import main.java.com.model.Remise;
+import main.java.com.model.Remise; 
 
 
 import java.util.ArrayList;
