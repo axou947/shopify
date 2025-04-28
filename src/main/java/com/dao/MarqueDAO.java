@@ -56,6 +56,7 @@ public class MarqueDAO implements GenericDAO<Marque> {
         return marques;
     }
 
+    
     @Override
     public boolean create(Marque marque) {
         String query = "INSERT INTO marque (nom, description, logo_url) VALUES (?, ?, ?)";
