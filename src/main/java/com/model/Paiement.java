@@ -7,7 +7,7 @@ import java.util.Date;
  */
 public class Paiement {
     private int id;
-    private int commandeId;
+    private int commandeId; 
     private double montant;
     private Date datePaiement;
     private String methode; // enum('carte', 'paypal', 'virement', 'especes')
