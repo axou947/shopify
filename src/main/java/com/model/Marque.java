@@ -6,7 +6,7 @@ package main.java.com.model;
 public class Marque {
     private int id;
     private String nom;
-    private String description;
+    private String description; 
     private String logoUrl;
 
     /**
