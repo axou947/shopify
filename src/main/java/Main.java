@@ -14,7 +14,7 @@ public class Main {
      */
     public static void main(String[] args)  {
         // Assure que l'interface graphique s'exécute sur l'EDT (Event Dispatch Thread)
-        SwingUtilities.invokeLater(new Runnable() {
+        SwingUtilities.invokeLater(new Runnable()  {
             @Override
             public void run() {
                 try {
