@@ -7,7 +7,7 @@ public class ArticleMarque {
     private int id;
     private int articleId;
     private int marqueId;
-    private Double prixSpecifique;
+    private Double prixSpecifique; 
 
     // Objets de relation
     private Article article;
