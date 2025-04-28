@@ -14,7 +14,7 @@ public class Utilisateur {
     private String prenom;
     private String adresse;
     private String telephone;
-    private Date dateInscription;
+    private Date dateInscription; 
 
     /**
      * Constructeur par défaut
