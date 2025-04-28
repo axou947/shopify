@@ -25,6 +25,7 @@ import java.util.List;
  */
 public class GestionArticlesPanel extends JPanel {
 
+    
     private MainFrame mainFrame;
     private ArticleController articleController;
     private MarqueDAO marqueDAO;
