@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List; 
 
 /**  
- * Classe DAO pour l'entité Article
+ * Classe DAO pour l'entité Article 
  */
 public class ArticleDAO implements GenericDAO<Article>  {
     private Connection connection; 
