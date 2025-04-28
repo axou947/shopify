@@ -17,7 +17,7 @@ public class PasswordHasher {
      * Génère un salt aléatoire
      * @return Salt généré
      */
-    private static byte[] generateSalt() {
+    private static byte[] generateSalt()  {
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[SALT_LENGTH];
         random.nextBytes(salt);
