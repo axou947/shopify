@@ -11,7 +11,7 @@ public class Commande {
     private Date dateCommande;
     private String statut; // enum('en_cours', 'validee', 'expediee', 'livree', 'annulee')
     private double montantTotal;
-    private double montantRemise;
+    private double montantRemise; 
     private String note;
 
     /**
