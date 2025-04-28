@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
 
+
 /**
  * Classe utilitaire pour le hachage sécurisé des mots de passe
  */
