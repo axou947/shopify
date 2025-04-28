@@ -5,7 +5,7 @@ package main.java.com.model;
  */
 public class Administrateur {
     private int id;
-    private int utilisateurId;
+    private int utilisateurId; 
     private String role;
 
     /**
