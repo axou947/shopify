@@ -2,7 +2,7 @@ package main.java;
 
 import main.java.com.view.common.MainFrame;
 
-import javax.swing.*;
+import javax.swing.*; 
 
 /**
  * Classe principale de l'application
