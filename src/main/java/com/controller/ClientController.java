@@ -15,7 +15,7 @@ import java.util.List;
  * Contrôleur pour gérer les opérations liées aux clients
  */
 public class ClientController {
-    private ClientDAO clientDAO;
+    private ClientDAO clientDAO; 
     private UtilisateurDAO utilisateurDAO;
 
     /**
