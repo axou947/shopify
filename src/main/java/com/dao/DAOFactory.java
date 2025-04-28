@@ -5,6 +5,7 @@ package main.java.com.dao;
  */
 public class DAOFactory {
 
+    
     /**
      * Crée et retourne une instance de ArticleDAO
      * @return Une instance de ArticleDAO
