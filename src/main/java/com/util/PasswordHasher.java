@@ -9,7 +9,7 @@ import java.util.Base64;
  * Classe utilitaire pour le hachage sécurisé des mots de passe
  */
 public class PasswordHasher {
-    private static final String HASH_ALGORITHM = "SHA-256";
+    private static final String HASH_ALGORITHM = "SHA-256" ;
     private static final int SALT_LENGTH = 16;
     private static final String SALT_PASSWORD_SEPARATOR = ":";
 
