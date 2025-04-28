@@ -14,6 +14,7 @@ public class ValidationUtils {
     private static final String PHONE_REGEX = "^[0-9]{10}$";
     private static final Pattern PHONE_PATTERN = Pattern.compile(PHONE_REGEX);
 
+ 
     /**
      * Valide un email
      * @param email Email à valider
