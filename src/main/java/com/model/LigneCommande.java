@@ -11,7 +11,7 @@ public class LigneCommande {
     private double prixUnitaire;
     private double prixTotal;
 
-    // Objet de relation
+    // Objet de relation 
     private ArticleMarque articleMarque;
 
     /**
