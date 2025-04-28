@@ -5,8 +5,8 @@ import main.java.com.dao.DAOFactory;
 import main.java.com.model.Article;
 import main.java.com.model.ArticleMarque;
 import main.java.com.model.LigneCommande;
-import main.java.com.model.Remise; 
-
+import main.java.com.model.Remise;
+import main.java.com.util.ArticleMarqueUtil;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,6 +21,9 @@ public class PanierController {
     private CommandeController commandeController;
     private double remiseTotal;
     private String codeRemise;
+
+    // Variabme pour mémoriser le montant net de la dernière commande
+    private double lastOrderNetAmount = 0;
 
     /**
      * Constructeur du contrôleur de panier
@@ -162,6 +165,7 @@ public class PanierController {
         lignesPanier.clear();
         remiseTotal = 0;
         codeRemise = null;
+        // Ne pas réinitialiser lastOrderNetAmount ici
     }
 
     /**
@@ -213,6 +217,16 @@ public class PanierController {
             return -1;
         }
 
+        // Assurez-vous que chaque ArticleMarque existe dans la base de données
+        for (LigneCommande ligne : lignesPanier) {
+            ArticleMarque articleMarque = ligne.getArticleMarque();
+            if (articleMarque != null) {
+                // Utilise notre utilitaire pour garantir que la relation existe
+                int articleMarqueId = ArticleMarqueUtil.ensureArticleMarqueExists(articleMarque);
+                ligne.setArticleMarqueId(articleMarqueId);
+            }
+        }
+
         // Vérifie la disponibilité des articles
         if (!commandeController.checkArticlesAvailability(lignesPanier)) {
             return -1;
@@ -223,15 +237,27 @@ public class PanierController {
             return -1;
         }
 
+        // Mémoriser le montant net avant de vider le panier
+        lastOrderNetAmount = getMontantNet();
+
         // Crée la commande
         int commandeId = commandeController.createCommande(clientId, lignesPanier, remiseTotal, note);
 
         // Si la commande a été créée avec succès, vide le panier
         if (commandeId > 0) {
-            viderPanier();
+            // On ne vide pas les variables mémorisées ici pour permettre
+            // à la page de paiement d'y accéder après création de la commande
+            lignesPanier.clear();
         }
 
         return commandeId;
+    }
+    /**
+     * Récupère le montant net de la dernière commande validée
+     * @return Le montant net de la dernière commande
+     */
+    public double getLastOrderNetAmount() {
+        return lastOrderNetAmount;
     }
 
     /**
@@ -278,3 +304,4 @@ public class PanierController {
         return lignesPanier;
     }
 }
+//
