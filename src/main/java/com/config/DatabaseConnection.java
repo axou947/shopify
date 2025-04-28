@@ -14,7 +14,7 @@ import java.sql.SQLException;
  * Utilise le pattern Singleton pour garantir une seule instance de connexion
  */
 public class DatabaseConnection {
-    private static DatabaseConnection instance;
+    private static DatabaseConnection instance ;
     private Connection connection;
 
     // Configuration de la base de données
