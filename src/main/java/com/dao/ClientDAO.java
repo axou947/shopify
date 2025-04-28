@@ -18,6 +18,7 @@ public class ClientDAO implements GenericDAO<Client> {
         this.connection = DatabaseConnection.getInstance().getConnection();
     }
 
+    
     @Override
     public Client findById(int id) {
         Client client = null;
