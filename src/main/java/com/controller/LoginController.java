@@ -3,14 +3,13 @@ package main.java.com.controller;
 import main.java.com.dao.DAOFactory;
 import main.java.com.dao.UtilisateurDAO;
 import main.java.com.model.Utilisateur;
-import main.java.com.util.PasswordHasher; 
-
+import main.java.com.util.PasswordHasher;
 
 /**
  * Contrôleur pour gérer les opérations de connexion
  */
-public class LoginController  {
-    private UtilisateurDAO utilisateurDAO ;
+public class LoginController {
+    private UtilisateurDAO utilisateurDAO;
 
     /**
      * Constructeur du contrôleur de login
@@ -44,6 +43,10 @@ public class LoginController  {
     public String getUserType(int userId) {
         Utilisateur utilisateur = utilisateurDAO.findById(userId);
         if (utilisateur != null) {
+            // Si c'est un admin, on retourne explicitement "admin" même si le rôle n'est pas défini
+            if ("admin".equals(utilisateur.getType())) {
+                return "admin";
+            }
             return utilisateur.getType();
         }
         return null;
@@ -72,3 +75,4 @@ public class LoginController  {
         return -1;
     }
 }
+//
